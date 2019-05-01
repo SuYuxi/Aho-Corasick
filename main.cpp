@@ -1,4 +1,4 @@
-//example
+//sample
 #include "AhoCorasick.cpp"
 #include <iostream>
 #include <string>

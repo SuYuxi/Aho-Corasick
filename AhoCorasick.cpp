@@ -5,6 +5,7 @@
 #include <queue>
 #include <string>
 #include <memory>
+#include <unordered_set>
 #include <iostream>
 const int SIGMA = 26;
 
@@ -27,11 +28,10 @@ namespace Aho_Corasick {
 		AhoCorasick() : root(nullptr) {};
 		void build(vector<string> _patterns)
 		{
-			patterns = _patterns;
 			root = make_shared<Node>();
-			for(int inx = 0; inx < patterns.size(); inx++)
+			for(int inx = 0; inx < _patterns.size(); inx++)
 			{
-				addPattern(patterns[inx]);
+				addPattern(_patterns[inx]);
 			}
 			buildFailureLink();
 		}
@@ -69,7 +69,8 @@ namespace Aho_Corasick {
 
 		void addPattern(string pattern)
 		{
-			if(pattern.empty()) return;
+			if(pattern.empty() || patterns.count(pattern) != 0) return;
+			patterns.insert(pattern);
 			shared_ptr<Node> node = root;
 			for(char& c : pattern)
 			{
@@ -133,7 +134,7 @@ namespace Aho_Corasick {
 		
 	private:
 		shared_ptr<Node> root;
-		vector<string> patterns;
+		unordered_set<string> patterns;
 	};
 }
 #endif
