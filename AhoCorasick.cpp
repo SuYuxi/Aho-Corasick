@@ -54,15 +54,15 @@ namespace Aho_Corasick {
 				{
 					curNode = curNode->children[inx];
 				}
-				if(curNode->isWord)
-				{
-					cout << curNode->word << endl;
-					cout << "(" << i - curNode->word.size() + 1 << "," << i << ")" << endl; 
-				}
 				for(string& s :curNode->suffixWords)
 				{
 					cout << s << endl;
 					cout << "(" << i - s.size() + 1 << "," << i << ")" << endl; 
+				}
+				if(curNode->isWord)
+				{
+					cout << curNode->word << endl;
+					cout << "(" << i - curNode->word.size() + 1 << "," << i << ")" << endl; 
 				}
 			}
 		};
@@ -117,13 +117,13 @@ namespace Aho_Corasick {
 						{
 							node->children[i]->fail = cur->children[i];
 							node->children[i]->suffixWords.clear();
-							if(cur->children[i]->isWord)
-							{
-								node->children[i]->suffixWords.emplace_back(cur->children[i]->word);
-							}
 							for(string& word : cur->children[i]->suffixWords)
 							{
 								node->children[i]->suffixWords.emplace_back(word);
+							}
+							if(cur->children[i]->isWord)
+							{
+								node->children[i]->suffixWords.emplace_back(cur->children[i]->word);
 							}
 						}
 					}
@@ -137,6 +137,3 @@ namespace Aho_Corasick {
 	};
 }
 #endif
-
-
-
